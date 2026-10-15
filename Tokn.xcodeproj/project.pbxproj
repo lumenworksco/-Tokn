@@ -7,56 +7,71 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE6FEFDB72EE4B3BBC2DA66F /* ToknApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598DAD12ED54C058307BE22 /* ToknApp.swift */; };
-		7A94CBF989EF47FB92FF4EA9 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83049B944C4F4198942DA9 /* AppModel.swift */; };
-		AAD7990E1FD6490DB64B23A0 /* UsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5943157705241F492C65B0D /* UsageData.swift */; };
+		11CBEAA473116A6A766821BD /* ToknTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3898AAEFE87AFD1ABC6BF221 /* ToknTests.swift */; };
 		2F068075C19E478684801301 /* UsageLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E0F17C47134B46A799B19D /* UsageLimit.swift */; };
-		9B6353BDACF64A5890B8C74B /* UsageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F4AEAA0F624D1D8B62D016 /* UsageStatus.swift */; };
-		44DDFB0281E447F7B15C04C3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853372E5B7C4E5A844C435D /* AppSettings.swift */; };
-		D7AEB9C6296741B8A5B9664C /* SessionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3ABC92BB484A9A8D09DFF3 /* SessionKey.swift */; };
-		5DB5EAB84CCE43499CB35C25 /* UsageAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D36C2D3524AD7A1CD8BE5 /* UsageAPIResponse.swift */; };
-		F154CD57AEF1426BA442AE88 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */; };
 		35BF700EBAFB495F9676BB26 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574C996024C401EA0E04147 /* SettingsRepository.swift */; };
-		F6DA61FBB39146948A5341D3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64CAB9F33B44416AB1F2986 /* NetworkService.swift */; };
-		A03DC25AD9B740988AF243B4 /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B7BB9226A413A981A8792 /* UsageService.swift */; };
-		C1D4E8A23F7B4091BE2D5A67 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F20D7E5C3A47E9A14F6C02 /* UpdateChecker.swift */; };
-		9E3A71F4D2C6408AB53F1E88 /* AutoUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7B9C1A6E2F4D35A8C07F53 /* AutoUpdater.swift */; };
-		AA1BC3340F2E4D87B9A6C521 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC3330F2E4D87B9A6C520 /* NotificationService.swift */; };
-		BB2CD4450G3F5E98CAB7D632 /* UsageHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD4440G3F5E98CAB7D631 /* UsageHistoryService.swift */; };
-		CC3DE5560H4G6FA9DBC8E743 /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DE5550H4G6FA9DBC8E742 /* SparklineView.swift */; };
-		525AF976226544C1895C59FB /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB877FE419A540B1B7D9894F /* MenuBarLabel.swift */; };
-		7A072B4315CE4E99908D65F0 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69EAC664AA54E859EF81AF5 /* SetupView.swift */; };
-		968FBBE2DDC949859E7E50D2 /* UsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E154383840CC8DC8943C /* UsageView.swift */; };
 		3B8F6E551CCF42E8943621FD /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5C36A900640EBB7284D5E /* MenuBarContentView.swift */; };
+		44DDFB0281E447F7B15C04C3 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853372E5B7C4E5A844C435D /* AppSettings.swift */; };
+		525AF976226544C1895C59FB /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB877FE419A540B1B7D9894F /* MenuBarLabel.swift */; };
 		5B7308A096834AF48BD00748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73A9618D23084B4C8DB3EB85 /* Assets.xcassets */; };
+		5DB5EAB84CCE43499CB35C25 /* UsageAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D36C2D3524AD7A1CD8BE5 /* UsageAPIResponse.swift */; };
+		7A072B4315CE4E99908D65F0 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69EAC664AA54E859EF81AF5 /* SetupView.swift */; };
+		7A94CBF989EF47FB92FF4EA9 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B83049B944C4F4198942DA9 /* AppModel.swift */; };
+		968FBBE2DDC949859E7E50D2 /* UsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B71E154383840CC8DC8943C /* UsageView.swift */; };
+		9B6353BDACF64A5890B8C74B /* UsageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F4AEAA0F624D1D8B62D016 /* UsageStatus.swift */; };
+		9E3A71F4D2C6408AB53F1E88 /* AutoUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7B9C1A6E2F4D35A8C07F53 /* AutoUpdater.swift */; };
+		A03DC25AD9B740988AF243B4 /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177B7BB9226A413A981A8792 /* UsageService.swift */; };
+		AA1BC3340F2E4D87B9A6C521 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1BC3330F2E4D87B9A6C520 /* NotificationService.swift */; };
+		AAD7990E1FD6490DB64B23A0 /* UsageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5943157705241F492C65B0D /* UsageData.swift */; };
+		AB65CFD66DB4580BA0C50D2D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9821AF685960F110F014FE3 /* Cocoa.framework */; };
+		AE6FEFDB72EE4B3BBC2DA66F /* ToknApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E598DAD12ED54C058307BE22 /* ToknApp.swift */; };
+		BB2CD4450G3F5E98CAB7D632 /* UsageHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD4440G3F5E98CAB7D631 /* UsageHistoryService.swift */; };
+		C1D4E8A23F7B4091BE2D5A67 /* UpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F20D7E5C3A47E9A14F6C02 /* UpdateChecker.swift */; };
+		CC3DE5560H4G6FA9DBC8E743 /* SparklineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3DE5550H4G6FA9DBC8E742 /* SparklineView.swift */; };
+		D7AEB9C6296741B8A5B9664C /* SessionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3ABC92BB484A9A8D09DFF3 /* SessionKey.swift */; };
+		F154CD57AEF1426BA442AE88 /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */; };
+		F6DA61FBB39146948A5341D3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64CAB9F33B44416AB1F2986 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C452FF7BD3A9363D46522B09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D9D9176F69443EE921FDBEB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02480501DD2A45F69F89D731;
+			remoteInfo = Tokn;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		06F4AEAA0F624D1D8B62D016 /* UsageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStatus.swift; sourceTree = "<group>"; };
+		13E0F17C47134B46A799B19D /* UsageLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLimit.swift; sourceTree = "<group>"; };
+		177B7BB9226A413A981A8792 /* UsageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageService.swift; sourceTree = "<group>"; };
+		3898AAEFE87AFD1ABC6BF221 /* ToknTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ToknTests.swift; sourceTree = "<group>"; };
+		479D36C2D3524AD7A1CD8BE5 /* UsageAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAPIResponse.swift; sourceTree = "<group>"; };
+		4D7B9C1A6E2F4D35A8C07F53 /* AutoUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoUpdater.swift; sourceTree = "<group>"; };
+		5574C996024C401EA0E04147 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		6A3ABC92BB484A9A8D09DFF3 /* SessionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKey.swift; sourceTree = "<group>"; };
+		73A9618D23084B4C8DB3EB85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
+		7B71E154383840CC8DC8943C /* UsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageView.swift; sourceTree = "<group>"; };
+		85225F1D686B46C096FBC03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B83049B944C4F4198942DA9 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		8EA5C36A900640EBB7284D5E /* MenuBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
+		AA1BC3330F2E4D87B9A6C520 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B8F20D7E5C3A47E9A14F6C02 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
+		B9821AF685960F110F014FE3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		BB2CD4440G3F5E98CAB7D631 /* UsageHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageHistoryService.swift; sourceTree = "<group>"; };
+		C31B283BD7E3E9A69A130CDE /* ToknTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToknTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB877FE419A540B1B7D9894F /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabel.swift; sourceTree = "<group>"; };
+		CC3DE5550H4G6FA9DBC8E742 /* SparklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklineView.swift; sourceTree = "<group>"; };
+		CCE990E00DD34D98A17956CF /* Tokn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tokn.entitlements; sourceTree = "<group>"; };
+		D5943157705241F492C65B0D /* UsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageData.swift; sourceTree = "<group>"; };
+		D69EAC664AA54E859EF81AF5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		E4E671727E9446FB89FE3C21 /* Tokn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tokn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E598DAD12ED54C058307BE22 /* ToknApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToknApp.swift; sourceTree = "<group>"; };
-		8B83049B944C4F4198942DA9 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		D5943157705241F492C65B0D /* UsageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageData.swift; sourceTree = "<group>"; };
-		13E0F17C47134B46A799B19D /* UsageLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageLimit.swift; sourceTree = "<group>"; };
-		06F4AEAA0F624D1D8B62D016 /* UsageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageStatus.swift; sourceTree = "<group>"; };
-		F853372E5B7C4E5A844C435D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		6A3ABC92BB484A9A8D09DFF3 /* SessionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKey.swift; sourceTree = "<group>"; };
-		479D36C2D3524AD7A1CD8BE5 /* UsageAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAPIResponse.swift; sourceTree = "<group>"; };
-		7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
-		5574C996024C401EA0E04147 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		F64CAB9F33B44416AB1F2986 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		177B7BB9226A413A981A8792 /* UsageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageService.swift; sourceTree = "<group>"; };
-		B8F20D7E5C3A47E9A14F6C02 /* UpdateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateChecker.swift; sourceTree = "<group>"; };
-		4D7B9C1A6E2F4D35A8C07F53 /* AutoUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoUpdater.swift; sourceTree = "<group>"; };
-		AA1BC3330F2E4D87B9A6C520 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		BB2CD4440G3F5E98CAB7D631 /* UsageHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageHistoryService.swift; sourceTree = "<group>"; };
-		CC3DE5550H4G6FA9DBC8E742 /* SparklineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparklineView.swift; sourceTree = "<group>"; };
-		CB877FE419A540B1B7D9894F /* MenuBarLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarLabel.swift; sourceTree = "<group>"; };
-		D69EAC664AA54E859EF81AF5 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
-		7B71E154383840CC8DC8943C /* UsageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageView.swift; sourceTree = "<group>"; };
-		8EA5C36A900640EBB7284D5E /* MenuBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
-		85225F1D686B46C096FBC03D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCE990E00DD34D98A17956CF /* Tokn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tokn.entitlements; sourceTree = "<group>"; };
-		73A9618D23084B4C8DB3EB85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F853372E5B7C4E5A844C435D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,23 +82,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FC365440D5625B7B255415B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB65CFD66DB4580BA0C50D2D /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DF673D92B10D475EB48550CA /* MainGroup */ = {
+		0A40F4BC5D914A33BEE799E1 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				156364F202C54DAE8E081A3C /* Tokn */,
-				F486BA47F08D47C0BD74B092 /* Products */,
+				8B83049B944C4F4198942DA9 /* AppModel.swift */,
 			);
-			sourceTree = "<group>";
-		};
-		F486BA47F08D47C0BD74B092 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E4E671727E9446FB89FE3C21 /* Tokn.app */,
-			);
-			name = Products;
+			path = App;
 			sourceTree = "<group>";
 		};
 		156364F202C54DAE8E081A3C /* Tokn */ = {
@@ -102,14 +117,6 @@
 			path = Tokn;
 			sourceTree = "<group>";
 		};
-		0A40F4BC5D914A33BEE799E1 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				8B83049B944C4F4198942DA9 /* AppModel.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 		334F7E276687441AA34DF3E8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,21 +130,20 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		440166DB464AFCAE6B7804CD /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				B9821AF685960F110F014FE3 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
 		686F76D8CB174DA99D55030D /* API */ = {
 			isa = PBXGroup;
 			children = (
 				479D36C2D3524AD7A1CD8BE5 /* UsageAPIResponse.swift */,
 			);
 			path = API;
-			sourceTree = "<group>";
-		};
-		C356ADDD8F624C048827631D /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */,
-				5574C996024C401EA0E04147 /* SettingsRepository.swift */,
-			);
-			path = Repositories;
 			sourceTree = "<group>";
 		};
 		9EA5FD69F69848B2837AB293 /* Services */ = {
@@ -153,6 +159,33 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C356ADDD8F624C048827631D /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				7A5D56BCF0EC40AC92CC7058 /* KeychainRepository.swift */,
+				5574C996024C401EA0E04147 /* SettingsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		DE08769EC5223CB54E3E6194 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				440166DB464AFCAE6B7804CD /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DF673D92B10D475EB48550CA = {
+			isa = PBXGroup;
+			children = (
+				156364F202C54DAE8E081A3C /* Tokn */,
+				F486BA47F08D47C0BD74B092 /* Products */,
+				DE08769EC5223CB54E3E6194 /* Frameworks */,
+				FD083BCFFE150AB6706CBBDF /* ToknTests */,
+			);
+			sourceTree = "<group>";
+		};
 		E5777BEF0A2644E38179B891 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +196,24 @@
 				CC3DE5550H4G6FA9DBC8E742 /* SparklineView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		F486BA47F08D47C0BD74B092 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E4E671727E9446FB89FE3C21 /* Tokn.app */,
+				C31B283BD7E3E9A69A130CDE /* ToknTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FD083BCFFE150AB6706CBBDF /* ToknTests */ = {
+			isa = PBXGroup;
+			children = (
+				3898AAEFE87AFD1ABC6BF221 /* ToknTests.swift */,
+			);
+			name = ToknTests;
+			path = ToknTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +235,24 @@
 			productName = Tokn;
 			productReference = E4E671727E9446FB89FE3C21 /* Tokn.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2F4BB715EBE0D26A4D0A91B0 /* ToknTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D3FAF954060F35B70CC5126 /* Build configuration list for PBXNativeTarget "ToknTests" */;
+			buildPhases = (
+				C763C9C7498E56C0AB797449 /* Sources */,
+				FC365440D5625B7B255415B1 /* Frameworks */,
+				F1FE3B6AFD3E1BA4F0FA3FF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79A57F300A40AC80FE7752DA /* PBXTargetDependency */,
+			);
+			name = ToknTests;
+			productName = ToknTests;
+			productReference = C31B283BD7E3E9A69A130CDE /* ToknTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -214,6 +283,7 @@
 			projectRoot = "";
 			targets = (
 				02480501DD2A45F69F89D731 /* Tokn */,
+				2F4BB715EBE0D26A4D0A91B0 /* ToknTests */,
 			);
 		};
 /* End PBXProject section */
@@ -227,9 +297,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1FE3B6AFD3E1BA4F0FA3FF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C763C9C7498E56C0AB797449 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11CBEAA473116A6A766821BD /* ToknTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA7D030877214CD9B72E8033 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,6 +344,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		79A57F300A40AC80FE7752DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Tokn;
+			target = 02480501DD2A45F69F89D731 /* Tokn */;
+			targetProxy = C452FF7BD3A9363D46522B09 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4299E6DDE0C54BD29247FDA0 /* Debug */ = {
@@ -323,6 +417,45 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
+		};
+		756B876E2D3A460586D35348 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Tokn/Tokn.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Tokn/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokn.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A7A6B83F5324A40E110DA1B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokn.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tokn.app/Contents/MacOS/Tokn";
+			};
+			name = Release;
 		};
 		AFEEC3E0A30E4F5982F463EF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -401,32 +534,34 @@
 			};
 			name = Debug;
 		};
-		756B876E2D3A460586D35348 /* Release */ = {
+		DBFAF298928A0E44B92415FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Tokn/Tokn.entitlements;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Tokn/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tokn.app;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tokn.app.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tokn.app/Contents/MacOS/Tokn";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1D3FAF954060F35B70CC5126 /* Build configuration list for PBXNativeTarget "ToknTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7A6B83F5324A40E110DA1B5 /* Release */,
+				DBFAF298928A0E44B92415FB /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		832423F0CF9D42DE8449FA46 /* Build configuration list for PBXProject "Tokn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -446,7 +581,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = 8D9D9176F69443EE921FDBEB /* Project object */;
 }

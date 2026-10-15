@@ -60,6 +60,8 @@ create-dmg \
   "/tmp/${DMG}" \
   "$STAGING/"
 echo "✓ DMG: /tmp/${DMG} ($(du -sh "/tmp/${DMG}" | cut -f1))"
+echo "  sha256: $(shasum -a 256 "/tmp/${DMG}" | cut -d' ' -f1)"
+echo "  (the in-app updater verifies this against the digest GitHub computes for the uploaded asset)"
 
 echo ""
 echo "→ Next: commit the version bump, tag, and upload"

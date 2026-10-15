@@ -40,8 +40,8 @@ final class AppModel {
         Task { await notificationService.requestPermission() }
 
         Task {
-            guard let update = await updateChecker.check(), !update.url.isEmpty else { return }
-            autoUpdater.startUpdate(from: update.url)
+            guard let update = await updateChecker.check() else { return }
+            autoUpdater.startUpdate(update)
         }
     }
 

@@ -43,7 +43,8 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 - **Burn rate ETA** — when you're on track to hit the limit before the window resets, the card footer shows both the reset time and "~2h at this pace" simultaneously; disappears automatically when usage slows or the window resets first (appears after a few minutes of use)
 - **Usage history chart** — tap the sparkline on any card to expand a full history chart with dashed warning/critical threshold lines and a time-span label
 - **Smart notifications** — configurable first threshold (50–90%) plus a fixed 100% alert; resets automatically when usage drops so future spikes notify again
-- **Auto-updates** — checks for new versions on launch and installs them in one click
+- **Game over** — when the weekly limit is used up, the menu bar shows "☠ GAME OVER" until it resets
+- **Auto-updates** — checks for new versions on launch and installs them in one click. Updates are only installed after the DMG's SHA-256 matches the digest GitHub publishes for the release asset, the app's bundle ID and code signature check out, and the swap is atomic (your current app is untouched if anything fails)
 
 ---
 
