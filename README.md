@@ -44,7 +44,7 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 - **Usage history chart** — tap the sparkline on any card to expand a full history chart with dashed warning/critical threshold lines and a time-span label
 - **Smart notifications** — configurable first threshold (50–90%) plus a fixed 100% alert; resets automatically when usage drops so future spikes notify again
 - **Game over** — when the weekly limit is used up, the menu bar shows "☠ GAME OVER" until it resets
-- **Auto-updates** — checks for new versions on launch and installs them in one click. Updates are only installed after the DMG's SHA-256 matches the digest GitHub publishes for the release asset, the app's bundle ID and code signature check out, and the swap is atomic (your current app is untouched if anything fails)
+- **Auto-updates** — checks for new versions on launch and installs them with one click (or automatically, if you turn that on in Settings). Updates are only installed after the DMG's SHA-256 matches the digest GitHub publishes for the release asset, the app's bundle ID and code signature check out, and the swap is atomic (your current app is untouched if anything fails)
 
 ---
 
@@ -69,6 +69,7 @@ Your session key is stored **only in the macOS Keychain** — never written to d
 | Expand history chart | Tap the sparkline on any card |
 | Change refresh interval | **Settings** → Refresh |
 | Change notification threshold | **Settings** → Notifications → threshold picker |
+| Check for updates | **Settings** → Updates → check for updates |
 | Remove session key | **Settings** → Remove session key |
 | Quit | **quit** in the popover footer |
 
@@ -93,11 +94,16 @@ xcodebuild -project Tokn.xcodeproj -scheme Tokn -configuration Release \
   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 ```
 
-The app icon is exported from the design source (SVG master + iconset). The script below is the legacy generator and no longer reflects the current logo:
 
-```bash
-swift scripts/generate_icons.swift
-```
+---
+
+## How it gets your usage
+
+Anthropic doesn't offer a public API for claude.ai subscription limits (the 5-hour session and weekly windows). Tokn reads the same internal endpoint the claude.ai web app uses, authenticated with your `sessionKey` cookie. That means:
+
+- It can break without notice if Anthropic changes the endpoint or response format.
+- It isn't an officially supported integration.
+- Your key never leaves your Mac except in requests to `claude.ai`.
 
 ---
 

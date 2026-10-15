@@ -5,8 +5,9 @@ set -euo pipefail
 VERSION="${1:?Usage: $0 <version>}"
 TAG="v${VERSION}"
 DMG="Tokn-${VERSION}.dmg"
-STAGING="/tmp/tokn_release_staging"
-ICNS_DIR="/tmp/tokn_dmg_icons.iconset"
+WORK="$(mktemp -d -t tokn_release)"
+STAGING="${WORK}/staging"
+ICNS_DIR="${WORK}/icons.iconset"
 
 echo "→ Building Tokn ${VERSION}..."
 xcodebuild \
@@ -29,7 +30,7 @@ for size in 16 32 64 128 256 512 1024; do
   [[ -f "$SRC" ]] && cp "$SRC" "${ICNS_DIR}/icon_${size}x${size}.png"
   [[ -f "$SRC" ]] && cp "$SRC" "${ICNS_DIR}/icon_${size}x${size}@2x.png"
 done
-iconutil -c icns "$ICNS_DIR" -o /tmp/Tokn.icns
+iconutil -c icns "$ICNS_DIR" -o ${WORK}/Tokn.icns
 echo "✓ Volume icon ready"
 
 echo "→ Staging app..."
@@ -46,10 +47,10 @@ codesign --force --deep --sign - \
 echo "✓ Ad-hoc signed (unidentified developer — right-click → Open to bypass)"
 
 echo "→ Building DMG..."
-rm -f "/tmp/${DMG}"
+rm -f "${WORK}/${DMG}"
 create-dmg \
   --volname "Tokn" \
-  --volicon /tmp/Tokn.icns \
+  --volicon ${WORK}/Tokn.icns \
   --window-pos 200 140 \
   --window-size 540 380 \
   --icon-size 128 \
@@ -57,14 +58,14 @@ create-dmg \
   --hide-extension "Tokn.app" \
   --app-drop-link 390 190 \
   --no-internet-enable \
-  "/tmp/${DMG}" \
+  "${WORK}/${DMG}" \
   "$STAGING/"
-echo "✓ DMG: /tmp/${DMG} ($(du -sh "/tmp/${DMG}" | cut -f1))"
-echo "  sha256: $(shasum -a 256 "/tmp/${DMG}" | cut -d' ' -f1)"
+echo "✓ DMG: ${WORK}/${DMG} ($(du -sh "${WORK}/${DMG}" | cut -f1))"
+echo "  sha256: $(shasum -a 256 "${WORK}/${DMG}" | cut -d' ' -f1)"
 echo "  (the in-app updater verifies this against the digest GitHub computes for the uploaded asset)"
 
 echo ""
 echo "→ Next: commit the version bump, tag, and upload"
 echo "   git add Tokn/Info.plist && git commit -m 'chore: bump to ${VERSION}'"
 echo "   git tag ${TAG} && git push && git push origin ${TAG}"
-echo "   gh release create ${TAG} /tmp/${DMG} --title 'Tokn ${VERSION}' --notes '...'"
+echo "   gh release create ${TAG} ${WORK}/${DMG} --title 'Tokn ${VERSION}' --notes '...'"

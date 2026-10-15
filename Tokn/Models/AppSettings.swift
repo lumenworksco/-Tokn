@@ -13,11 +13,12 @@ struct AppSettings: Codable, Equatable, Sendable {
     var notificationThreshold: Int      // first alert threshold (50–90%); 100% always fires
     var launchAtLogin: Bool
     var menuBarStyle: MenuBarStyle
+    var autoInstallUpdates: Bool        // off by default: updates need an explicit click
 
     // CodingKeys kept in the struct body so the synthesized encode(to:) picks them up.
     private enum CodingKeys: String, CodingKey {
         case refreshInterval, cachedOrganizationId, notificationsEnabled,
-             notificationThreshold, launchAtLogin, menuBarStyle
+             notificationThreshold, launchAtLogin, menuBarStyle, autoInstallUpdates
     }
 
     static let `default` = AppSettings(
@@ -26,7 +27,8 @@ struct AppSettings: Codable, Equatable, Sendable {
         notificationsEnabled: true,
         notificationThreshold: 80,
         launchAtLogin: false,
-        menuBarStyle: .dotAndPercent
+        menuBarStyle: .dotAndPercent,
+        autoInstallUpdates: false
     )
 
     mutating func setRefreshInterval(_ interval: TimeInterval) {
@@ -45,5 +47,6 @@ extension AppSettings {
         notificationThreshold = try c.decodeIfPresent(Int.self,          forKey: .notificationThreshold) ?? 80
         launchAtLogin         = try c.decodeIfPresent(Bool.self,         forKey: .launchAtLogin)         ?? false
         menuBarStyle          = try c.decodeIfPresent(MenuBarStyle.self, forKey: .menuBarStyle)          ?? .dotAndPercent
+        autoInstallUpdates    = try c.decodeIfPresent(Bool.self,         forKey: .autoInstallUpdates)    ?? false
     }
 }

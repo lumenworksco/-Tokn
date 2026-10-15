@@ -7,6 +7,8 @@ final class AppModel {
     var usageData: UsageData?
     var isLoading = false
     var errorMessage: String?
+    var isCheckingForUpdates = false
+    var updateCheckMessage: String?
     var isSetupComplete = false
 
     var settings: AppSettings = .default {
@@ -39,10 +41,22 @@ final class AppModel {
 
         Task { await notificationService.requestPermission() }
 
-        Task {
-            guard let update = await updateChecker.check() else { return }
-            autoUpdater.startUpdate(update)
+        Task { await checkForUpdates() }
+    }
+
+    /// Looks for a newer release. Installs it right away only if the user opted in;
+    /// otherwise the update banner offers an explicit button.
+    func checkForUpdates(manual: Bool = false) async {
+        guard !isCheckingForUpdates else { return }
+        isCheckingForUpdates = true
+        defer { isCheckingForUpdates = false }
+        updateCheckMessage = nil
+        guard let update = await updateChecker.check() else {
+            if manual { updateCheckMessage = "you're up to date" }
+            return
         }
+        if manual { updateCheckMessage = "v\(update.version) available" }
+        if settings.autoInstallUpdates { autoUpdater.startUpdate(update) }
     }
 
     func refresh() async {

@@ -173,8 +173,14 @@ struct UsageView: View {
     private var updateAction: some View {
         switch appModel.autoUpdater.phase {
         case .idle:
-            // Auto-download starts immediately; idle here means the Task is in flight
-            ProgressView().controlSize(.mini).tint(accent)
+            Button("update") {
+                if let update = appModel.updateChecker.available {
+                    appModel.autoUpdater.startUpdate(update)
+                }
+            }
+            .font(.system(size: 11, weight: .medium, design: .monospaced))
+            .foregroundStyle(accent)
+            .buttonStyle(.plain)
         case .downloading(let p):
             HStack(spacing: 5) {
                 ProgressView(value: p).progressViewStyle(.linear).frame(width: 48).tint(accent)
@@ -564,6 +570,37 @@ private struct SettingsPanel: View {
                     .pickerStyle(.segmented)
                     .padding(.bottom, 14)
                 }
+
+                rowLabel("Updates")
+                Toggle(isOn: Binding(
+                    get: { appModel.settings.autoInstallUpdates },
+                    set: { appModel.settings.autoInstallUpdates = $0 }
+                )) {
+                    Text("Install updates automatically")
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.55))
+                }
+                .toggleStyle(.switch)
+                .controlSize(.mini)
+                .padding(.bottom, 8)
+
+                HStack(spacing: 8) {
+                    Button("check for updates") { Task { await appModel.checkForUpdates(manual: true) } }
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.55))
+                        .buttonStyle(.plain)
+                        .disabled(appModel.isCheckingForUpdates)
+                    if appModel.isCheckingForUpdates {
+                        ProgressView().controlSize(.mini)
+                    } else if let msg = appModel.updateCheckMessage {
+                        Text(msg)
+                            .font(.system(size: 10, design: .monospaced))
+                            .foregroundStyle(Color(white: 0.38))
+                    }
+                }
+                .padding(.bottom, 14)
+
+                div.frame(height: 1).padding(.bottom, 12)
 
                 rowLabel("Startup")
                 Toggle(isOn: Binding(

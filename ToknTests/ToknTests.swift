@@ -65,6 +65,7 @@ final class AppSettingsTests: XCTestCase {
     func testMissingFieldsGetDefaults() throws {
         let s = try JSONDecoder().decode(AppSettings.self, from: Data("{}".utf8))
         XCTAssertEqual(s, AppSettings.default)
+        XCTAssertFalse(s.autoInstallUpdates)
     }
 
     func testRefreshIntervalClamped() {
