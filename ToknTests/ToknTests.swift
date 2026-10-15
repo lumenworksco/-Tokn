@@ -135,4 +135,58 @@ final class InstallerTests: XCTestCase {
         guard case .failure(let e) = result else { return XCTFail("should reject") }
         XCTAssertTrue(e.message.contains("Checksum"))
     }
+
+    // Full install path with a real (ad-hoc signed) fake app inside a real DMG.
+    func testInstallsValidDMGAndReplacesTarget() throws {
+        let fm = FileManager.default
+        let root = fm.temporaryDirectory.appendingPathComponent("tokn-it-\(UUID().uuidString)")
+        defer { try? fm.removeItem(at: root) }
+
+        func makeApp(at url: URL, marker: String) throws {
+            let macOS = url.appendingPathComponent("Contents/MacOS")
+            try fm.createDirectory(at: macOS, withIntermediateDirectories: true)
+            let plist: [String: Any] = ["CFBundleIdentifier": "com.tokn.app", "CFBundleExecutable": "Tokn",
+                                        "CFBundlePackageType": "APPL", "CFBundleName": "Tokn", "Marker": marker]
+            try (plist as NSDictionary).write(to: url.appendingPathComponent("Contents/Info.plist"))
+            try Data("#!/bin/sh\n".utf8).write(to: macOS.appendingPathComponent("Tokn"))
+            try fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: macOS.appendingPathComponent("Tokn").path)
+        }
+        // Read the plist directly: Bundle caches Info.plist contents per path.
+        func marker(of app: URL) -> String? {
+            (NSDictionary(contentsOf: app.appendingPathComponent("Contents/Info.plist")))?["Marker"] as? String
+        }
+        func sh(_ exe: String, _ args: [String]) throws {
+            let p = Process(); p.executableURL = URL(fileURLWithPath: exe); p.arguments = args
+            p.standardOutput = FileHandle.nullDevice; p.standardError = FileHandle.nullDevice
+            try p.run(); p.waitUntilExit()
+            XCTAssertEqual(p.terminationStatus, 0, "\(exe) \(args)")
+        }
+
+        let dmgSrc = root.appendingPathComponent("dmgsrc")
+        try makeApp(at: dmgSrc.appendingPathComponent("Tokn.app"), marker: "new")
+        try sh("/usr/bin/codesign", ["--force", "--deep", "--sign", "-", dmgSrc.appendingPathComponent("Tokn.app").path])
+        let dmg = root.appendingPathComponent("t.dmg")
+        try sh("/usr/bin/hdiutil", ["create", "-quiet", "-srcfolder", dmgSrc.path, "-format", "UDZO", dmg.path])
+
+        let installDir = root.appendingPathComponent("Applications")
+        let target = installDir.appendingPathComponent("Tokn.app")
+        try makeApp(at: target, marker: "old")
+
+        // Installer deletes the dmg it is given, so hand it a copy.
+        let copy = root.appendingPathComponent("copy.dmg")
+        try fm.copyItem(at: dmg, to: copy)
+        let sha = try Installer.sha256Hex(of: copy)
+
+        // Wrong bundle ID is rejected and leaves the old app in place.
+        let wrongID = Installer.install(dmg: copy, expectedSHA256: sha, expectedBundleID: "com.evil.app", replacing: target)
+        guard case .failure = wrongID else { return XCTFail("wrong bundle id must fail") }
+        XCTAssertEqual(marker(of: target), "old")
+
+        try fm.copyItem(at: dmg, to: copy)
+        let ok = Installer.install(dmg: copy, expectedSHA256: sha, expectedBundleID: "com.tokn.app", replacing: target)
+        guard case .success = ok else { return XCTFail("install should succeed: \(ok)") }
+        XCTAssertEqual(marker(of: target), "new")
+        // No staging leftovers next to the app.
+        XCTAssertEqual(try fm.contentsOfDirectory(atPath: installDir.path), ["Tokn.app"])
+    }
 }
