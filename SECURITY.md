@@ -7,7 +7,7 @@ Only the latest release receives fixes. Please update before reporting.
 ## Reporting a vulnerability
 
 Please **do not** open a public issue for security problems. Use GitHub's
-[private vulnerability reporting](https://github.com/lumenworksco/Tokn/security/advisories/new)
+[private vulnerability reporting](https://github.com/lumenworksco/-Tokn/security/advisories/new)
 instead. You can expect a reply within a few days.
 
 ## Scope

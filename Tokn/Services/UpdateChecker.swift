@@ -19,7 +19,7 @@ final class UpdateChecker {
     var availableVersion: String? { available?.version }
 
     private let current: String
-    private let apiURL = URL(string: "https://api.github.com/repos/lumenworksco/Tokn/releases/latest")!
+    private let apiURL = URL(string: "https://api.github.com/repos/lumenworksco/-Tokn/releases/latest")!
 
     init() {
         current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"

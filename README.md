@@ -4,11 +4,11 @@
 
 Track your Claude.ai session and weekly usage from the macOS menu bar — built from scratch so you know exactly what it does with your session key.
 
-[![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue?logo=apple)](https://github.com/lumenworksco/Tokn/releases)
+[![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue?logo=apple)](https://github.com/lumenworksco/-Tokn/releases)
 [![Swift](https://img.shields.io/badge/Swift-5-orange?logo=swift)](https://swift.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/lumenworksco/Tokn?color=blueviolet)](https://github.com/lumenworksco/Tokn/releases/latest)
-[![CI](https://github.com/lumenworksco/Tokn/actions/workflows/ci.yml/badge.svg)](https://github.com/lumenworksco/Tokn/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/lumenworksco/-Tokn?color=blueviolet)](https://github.com/lumenworksco/-Tokn/releases/latest)
+[![CI](https://github.com/lumenworksco/-Tokn/actions/workflows/ci.yml/badge.svg)](https://github.com/lumenworksco/-Tokn/actions/workflows/ci.yml)
 
 ---
 
@@ -16,7 +16,7 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 
 <div align="center">
 
-<a href="https://github.com/lumenworksco/Tokn/releases/latest">
+<a href="https://github.com/lumenworksco/-Tokn/releases/latest">
   <img src="https://img.shields.io/badge/Download_for_macOS-%23000000?style=for-the-badge&logo=apple&logoColor=white" alt="Download for macOS" height="48"/>
 </a>
 
@@ -27,7 +27,7 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 
 <br/>
 
-1. Download the `.dmg` from the [latest release](https://github.com/lumenworksco/Tokn/releases/latest)
+1. Download the `.dmg` from the [latest release](https://github.com/lumenworksco/-Tokn/releases/latest)
 2. Open it and drag **Tokn** into the **Applications** folder
 3. Launch it — a coloured dot and percentage appear in your menu bar
 
@@ -81,7 +81,7 @@ Your session key is stored **only in the macOS Keychain** — never written to d
 Requires Xcode 16+ and macOS 14+.
 
 ```bash
-git clone https://github.com/lumenworksco/Tokn.git
+git clone https://github.com/lumenworksco/-Tokn.git
 cd Tokn
 open Tokn.xcodeproj
 ```
