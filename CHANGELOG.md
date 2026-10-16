@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.50
+- Update checks now use the renamed GitHub repository (`lumenworksco/-Tokn`) directly instead of relying on a redirect.
+- Repository polish: screenshot, security policy, issue templates, CI.
+
 ## 1.0.49
 - Weekly limit reached: the menu bar shows "☠ GAME OVER" until the window resets (dropdown unchanged).
 - Updates now require a click by default; new Settings → Updates section with "Install updates automatically" and "check for updates".

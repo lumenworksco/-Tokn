@@ -10,6 +10,10 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 [![Release](https://img.shields.io/github/v/release/lumenworksco/-Tokn?color=blueviolet)](https://github.com/lumenworksco/-Tokn/releases/latest)
 [![CI](https://github.com/lumenworksco/-Tokn/actions/workflows/ci.yml/badge.svg)](https://github.com/lumenworksco/-Tokn/actions/workflows/ci.yml)
 
+<p align="center">
+  <img src="docs/assets/screenshot.png" width="320" alt="Tokn popover showing session and weekly usage" />
+</p>
+
 ---
 
 ## Download
