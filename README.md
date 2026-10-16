@@ -5,9 +5,10 @@
 Track your Claude.ai session and weekly usage from the macOS menu bar — built from scratch so you know exactly what it does with your session key.
 
 [![macOS 14+](https://img.shields.io/badge/macOS-14%2B-blue?logo=apple)](https://github.com/lumenworksco/Tokn/releases)
-[![Swift](https://img.shields.io/badge/Swift-5.9-orange?logo=swift)](https://swift.org)
+[![Swift](https://img.shields.io/badge/Swift-5-orange?logo=swift)](https://swift.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/lumenworksco/Tokn?color=blueviolet)](https://github.com/lumenworksco/Tokn/releases/latest)
+[![CI](https://github.com/lumenworksco/Tokn/actions/workflows/ci.yml/badge.svg)](https://github.com/lumenworksco/Tokn/actions/workflows/ci.yml)
 
 ---
 
