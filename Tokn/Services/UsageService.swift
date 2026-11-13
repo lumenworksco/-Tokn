@@ -18,15 +18,17 @@ enum AppError: LocalizedError {
     }
 }
 
-private struct Organization: Decodable {
+struct Organization: Decodable, Sendable {
     let uuid: String
+    let name: String?
 }
 
 final class UsageService {
     private let network = NetworkService()
     private let baseURL = "https://claude.ai/api"
 
-    func validateKey(_ key: SessionKey) async throws -> String {
+    /// Returns the first organization whose usage endpoint this key can read.
+    func validateKey(_ key: SessionKey) async throws -> Organization {
         let orgs: [Organization] = try await network.get(
             "\(baseURL)/organizations",
             sessionKey: key.value
@@ -43,7 +45,7 @@ final class UsageService {
                     "\(baseURL)/organizations/\(org.uuid)/usage",
                     sessionKey: key.value
                 )
-                return org.uuid
+                return org
             } catch let err as NetworkError {
                 switch err {
                 case .sessionExpired:

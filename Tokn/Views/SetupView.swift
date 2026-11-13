@@ -4,6 +4,7 @@ struct SetupView: View {
     let appModel: AppModel
 
     @State private var rawKey = ""
+    @State private var label = ""
     @State private var isConnecting = false
     @State private var errorMessage: String?
 
@@ -16,13 +17,24 @@ struct SetupView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
-            VStack(alignment: .leading, spacing: 3) {
-                Text("Tokn")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.white)
-                Text("Claude session usage in your menu bar.")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(Color(white: 0.35))
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .lineLimit(1)
+                    Text(subtitle)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.35))
+                }
+                Spacer()
+                if appModel.isSetupComplete {
+                    Button("cancel") { appModel.setupMode = nil }
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.4))
+                        .buttonStyle(.plain)
+                        .disabled(isConnecting)
+                }
             }
             .padding(.horizontal, 14)
             .padding(.top, 13)
@@ -55,6 +67,27 @@ struct SetupView: View {
                     .foregroundStyle(Color(white: 0.28))
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, 12)
+
+                if appModel.setupMode == .add {
+                    Text("NAME")
+                        .font(.system(size: 9, weight: .semibold))
+                        .foregroundStyle(Color(white: 0.32))
+                        .kerning(0.8)
+                        .padding(.bottom, 6)
+
+                    TextField("optional — e.g. work, personal", text: $label)
+                        .textFieldStyle(.plain)
+                        .font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                .fill(cardBg)
+                                .strokeBorder(stroke, lineWidth: 0.5)
+                        )
+                        .padding(.bottom, 12)
+                }
 
                 if let error = errorMessage {
                     Text("✗ \(error)")
@@ -93,6 +126,27 @@ struct SetupView: View {
         .background(bg)
     }
 
+    private var replacingId: UUID? {
+        if case .replaceKey(let id) = appModel.setupMode { return id }
+        return nil
+    }
+
+    private var isReplacing: Bool { replacingId != nil }
+
+    private var title: String {
+        if let id = replacingId, let account = appModel.accounts.first(where: { $0.id == id }) {
+            return "New key · \(account.label)"
+        }
+        return appModel.isSetupComplete ? "Add account" : "Tokn"
+    }
+
+    private var subtitle: String {
+        if isReplacing { return "Paste a fresh session key." }
+        return appModel.isSetupComplete
+            ? "Track another Claude login's limits."
+            : "Claude session usage in your menu bar."
+    }
+
     private func connect() {
         let key = rawKey.trimmingCharacters(in: .whitespaces)
         guard !key.isEmpty else { return }
@@ -102,7 +156,7 @@ struct SetupView: View {
         Task {
             defer { isConnecting = false }
             do {
-                try await appModel.saveSessionKey(key)
+                try await appModel.saveSessionKey(key, label: label, replacing: replacingId)
             } catch {
                 errorMessage = error.localizedDescription
             }

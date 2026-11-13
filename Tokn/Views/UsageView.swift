@@ -28,8 +28,13 @@ struct UsageView: View {
         .background(bg)
         .clipped()
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignKeyNotification)) { _ in showSettings = false }
-        .onAppear { history = appModel.historyService.load() }
-        .onChange(of: appModel.usageData) { _, _ in history = appModel.historyService.load() }
+        .onAppear { reloadHistory() }
+        .onChange(of: appModel.usageData) { _, _ in reloadHistory() }
+        .onChange(of: appModel.settings.selectedAccountId) { _, _ in reloadHistory() }
+    }
+
+    private func reloadHistory() {
+        history = appModel.selectedAccount.map { appModel.historyService.load(for: $0.id) } ?? []
     }
 
     // MARK: Main
@@ -40,6 +45,10 @@ struct UsageView: View {
             div.frame(height: 1)
             if appModel.updateChecker.availableVersion != nil {
                 updateBanner
+                div.frame(height: 1)
+            }
+            if appModel.accounts.count > 1 {
+                AccountSwitcher(appModel: appModel)
                 div.frame(height: 1)
             }
             if appModel.usageData != nil, let error = appModel.errorMessage {
@@ -74,7 +83,7 @@ struct UsageView: View {
             // Native ProgressView when loading — always centred, never wobbles
             Button { Task { await appModel.refresh() } } label: {
                 Group {
-                    if appModel.isLoading {
+                    if appModel.isRefreshing {
                         ProgressView().controlSize(.mini)
                     } else {
                         Image(systemName: "arrow.clockwise")
@@ -85,6 +94,7 @@ struct UsageView: View {
                 .frame(width: 16, height: 16)
             }
             .buttonStyle(.plain)
+            .disabled(appModel.isRefreshing)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 11)
@@ -106,6 +116,8 @@ struct UsageView: View {
                           history: history, pct: \.weeklyPct)
             }
             .padding(10)
+            // Fresh card state (expanded chart, animations) per account
+            .id(appModel.selectedAccount?.id)
         } else {
             loadingView
         }
@@ -229,6 +241,79 @@ struct UsageView: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 9)
+    }
+}
+
+// MARK: - AccountSwitcher
+
+// One row per account with both limits, so every account is visible at a glance.
+// Tapping a row selects it for the cards below and the menu bar.
+private struct AccountSwitcher: View {
+    let appModel: AppModel
+
+    var body: some View {
+        VStack(spacing: 2) {
+            ForEach(appModel.accounts) { account in
+                row(account)
+            }
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 6)
+    }
+
+    private func row(_ account: Account) -> some View {
+        let data = appModel.accountUsage[account.id]
+        let failed = appModel.accountErrors[account.id] != nil
+        let selected = appModel.selectedAccount?.id == account.id
+        let dotColor = data.map { $0.weeklyUsage.isExceeded ? UsageStatus.critical.color : $0.sessionUsage.status.color }
+            ?? Color(white: 0.3)
+
+        return Button { appModel.selectAccount(account.id) } label: {
+            HStack(spacing: 6) {
+                Circle().fill(dotColor).frame(width: 6, height: 6)
+                Text(account.label)
+                    .font(.system(size: 11, weight: selected ? .semibold : .regular, design: .monospaced))
+                    .foregroundStyle(Color(white: selected ? 0.85 : 0.5))
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                Spacer(minLength: 4)
+                if failed {
+                    Image(systemName: "exclamationmark.triangle")
+                        .font(.system(size: 9))
+                        .foregroundStyle(.orange)
+                        .help(appModel.accountErrors[account.id] ?? "")
+                }
+                if let data {
+                    pct("5h", data.sessionUsage)
+                    pct("7d", data.weeklyUsage)
+                } else if appModel.loadingAccounts.contains(account.id) {
+                    ProgressView().controlSize(.mini)
+                } else if !failed {
+                    Text("—")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.3))
+                }
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .fill(selected ? cardBg : .clear)
+            )
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func pct(_ tag: String, _ limit: UsageLimit) -> some View {
+        HStack(spacing: 3) {
+            Text(tag)
+                .foregroundStyle(Color(white: 0.3))
+            Text("\(Int(limit.utilization))%")
+                .foregroundStyle(limit.status.color)
+                .frame(minWidth: 30, alignment: .trailing)
+        }
+        .font(.system(size: 10, weight: .medium, design: .monospaced))
     }
 }
 
@@ -484,8 +569,8 @@ private struct SettingsPanel: View {
     let appModel: AppModel
     @Binding var showSettings: Bool
     @State private var selectedInterval: TimeInterval = 60
-    @State private var showClearConfirm = false
-    @State private var clearError: String?
+    @State private var confirmRemoveId: UUID?
+    @State private var removeError: String?
 
     private let intervals: [(label: String, value: TimeInterval)] = [
         ("1 min",  60),
@@ -624,51 +709,36 @@ private struct SettingsPanel: View {
 
                 div.frame(height: 1).padding(.bottom, 12)
 
-                if let error = clearError {
+                rowLabel("Accounts")
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(appModel.accounts) { account in
+                        AccountSettingsRow(appModel: appModel, account: account,
+                                           confirmRemoveId: $confirmRemoveId,
+                                           removeError: $removeError,
+                                           showSettings: $showSettings)
+                    }
+                }
+                .padding(.bottom, 8)
+
+                if let error = removeError {
                     Text(error)
                         .font(.system(size: 10, design: .monospaced))
                         .foregroundStyle(.red)
                         .padding(.bottom, 8)
                 }
 
-                // confirmationDialog doesn't work in MenuBarExtra NSPanel —
-                // use inline confirmation instead.
-                if showClearConfirm {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("remove session key?")
+                Button {
+                    showSettings = false
+                    appModel.setupMode = .add
+                } label: {
+                    HStack(spacing: 5) {
+                        Image(systemName: "plus").font(.system(size: 10, weight: .semibold))
+                        Text("add account")
                             .font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(Color(white: 0.55))
-                        HStack(spacing: 10) {
-                            Button("confirm") {
-                                do {
-                                    try appModel.clearSessionKey()
-                                    showSettings = false
-                                } catch {
-                                    clearError = error.localizedDescription
-                                    showClearConfirm = false
-                                }
-                            }
-                            .font(.system(size: 11, design: .monospaced))
-                            .foregroundStyle(Color(red: 1, green: 0.27, blue: 0.23).opacity(0.85))
-                            .buttonStyle(.plain)
-
-                            Button("cancel") { showClearConfirm = false }
-                                .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(Color(white: 0.38))
-                                .buttonStyle(.plain)
-                        }
                     }
-                } else {
-                    Button { showClearConfirm = true } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "trash").font(.system(size: 11))
-                            Text("remove session key")
-                                .font(.system(size: 11, design: .monospaced))
-                        }
-                    }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(Color(red: 1, green: 0.27, blue: 0.23).opacity(0.85))
+                    .foregroundStyle(accent)
                 }
+                .buttonStyle(.plain)
             }
             .padding(.horizontal, 14)
             .padding(.top, 12)
@@ -708,5 +778,86 @@ private struct SettingsPanel: View {
             .kerning(0.8)
             .textCase(.uppercase)
             .padding(.bottom, 6)
+    }
+}
+
+// MARK: - AccountSettingsRow
+
+// Rename in place (commits on return or when focus leaves), replace the key, or remove.
+private struct AccountSettingsRow: View {
+    let appModel: AppModel
+    let account: Account
+    @Binding var confirmRemoveId: UUID?
+    @Binding var removeError: String?
+    @Binding var showSettings: Bool
+    @State private var draft = ""
+    @FocusState private var focused: Bool
+
+    private let red = Color(red: 1, green: 0.27, blue: 0.23)
+
+    var body: some View {
+        // confirmationDialog doesn't work in MenuBarExtra NSPanel —
+        // use inline confirmation instead.
+        if confirmRemoveId == account.id {
+            HStack(spacing: 10) {
+                Text("remove \(account.label)?")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(Color(white: 0.55))
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                Spacer()
+                Button("confirm") {
+                    confirmRemoveId = nil
+                    do {
+                        try appModel.removeAccount(account.id)
+                        removeError = nil
+                        if !appModel.isSetupComplete { showSettings = false }
+                    } catch {
+                        removeError = error.localizedDescription
+                    }
+                }
+                .font(.system(size: 11, design: .monospaced))
+                .foregroundStyle(red.opacity(0.85))
+                .buttonStyle(.plain)
+                Button("cancel") { confirmRemoveId = nil }
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(Color(white: 0.38))
+                    .buttonStyle(.plain)
+            }
+        } else {
+            HStack(spacing: 10) {
+                TextField("name", text: $draft)
+                    .textFieldStyle(.plain)
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(Color(white: 0.7))
+                    .focused($focused)
+                    .onSubmit(commit)
+                    .onChange(of: focused) { _, isFocused in if !isFocused { commit() } }
+                Button {
+                    showSettings = false
+                    appModel.setupMode = .replaceKey(account.id)
+                } label: {
+                    Image(systemName: "key").font(.system(size: 11))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color(white: 0.45))
+                .help("Replace session key")
+                Button { confirmRemoveId = account.id } label: {
+                    Image(systemName: "trash").font(.system(size: 11))
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(red.opacity(0.85))
+                .help("Remove account")
+            }
+            .onAppear { draft = account.label }
+            // Closing the popover removes the row without a focus change; don't drop the edit.
+            .onDisappear(perform: commit)
+            .onChange(of: account.label) { _, newValue in draft = newValue }
+        }
+    }
+
+    private func commit() {
+        appModel.renameAccount(account.id, to: draft)
+        draft = appModel.accounts.first { $0.id == account.id }?.label ?? draft
     }
 }

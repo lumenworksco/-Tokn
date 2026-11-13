@@ -18,8 +18,15 @@ enum KeychainError: LocalizedError {
 }
 
 final class KeychainRepository: Sendable {
+    /// Slot used before multi-account support; only read during migration.
+    static let legacyAccount = "session-key"
+
     private let service = "com.tokn.app"
-    private let account = "session-key"
+    private let account: String
+
+    init(account: String) {
+        self.account = account
+    }
 
     func save(_ value: String) throws {
         guard let data = value.data(using: .utf8) else { throw KeychainError.encodingFailed }

@@ -43,6 +43,7 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 
 - **Session (5h)** — usage within the current 5-hour rolling window, with exact time until reset
 - **Weekly (7d)** — usage across the current 7-day window
+- **Multiple accounts** — add as many Claude logins as you like; the popover lists every account's 5h and 7d usage at a glance, and the one you select drives the menu bar
 - Colour-coded status: green (safe) → orange (≥50%) → red (≥80%)
 - Menu bar dot updates colour in real time so you can tell at a glance without opening the popover
 - **Burn rate ETA** — when you're on track to hit the limit before the window resets, the card footer shows both the reset time and "~2h at this pace" simultaneously; disappears automatically when usage slows or the window resets first (appears after a few minutes of use)
@@ -61,7 +62,9 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 4. Copy the value of the `sessionKey` cookie — it starts with `sk-ant-`
 5. Click the Tokn icon in your menu bar and paste it in
 
-Your session key is stored **only in the macOS Keychain** — never written to disk or sent anywhere other than `claude.ai`.
+To track another Claude account, log into it (e.g. in a different browser profile), copy its `sessionKey` the same way, and use **Settings → Accounts → add account**.
+
+Each session key is stored **only in the macOS Keychain** — never written to disk or sent anywhere other than `claude.ai`.
 
 ---
 
@@ -75,7 +78,11 @@ Your session key is stored **only in the macOS Keychain** — never written to d
 | Change refresh interval | **Settings** → Refresh |
 | Change notification threshold | **Settings** → Notifications → threshold picker |
 | Check for updates | **Settings** → Updates → check for updates |
-| Remove session key | **Settings** → Remove session key |
+| Add another account | **Settings** → Accounts → add account |
+| Switch account shown in menu bar | Click the account's row at the top of the popover |
+| Rename an account | **Settings** → Accounts → edit the name, press return |
+| Replace an expired key | **Settings** → Accounts → key icon |
+| Remove an account | **Settings** → Accounts → trash icon |
 | Quit | **quit** in the popover footer |
 
 ---

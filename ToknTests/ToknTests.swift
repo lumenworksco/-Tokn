@@ -68,10 +68,61 @@ final class AppSettingsTests: XCTestCase {
         XCTAssertFalse(s.autoInstallUpdates)
     }
 
+    func testLegacySettingsDecodeWithoutAccounts() throws {
+        let json = #"{"refreshInterval":120,"cachedOrganizationId":"org-1","notificationsEnabled":false}"#
+        let s = try JSONDecoder().decode(AppSettings.self, from: Data(json.utf8))
+        XCTAssertEqual(s.cachedOrganizationId, "org-1")
+        XCTAssertEqual(s.refreshInterval, 120)
+        XCTAssertTrue(s.accounts.isEmpty)
+        XCTAssertNil(s.selectedAccount)
+    }
+
+    // Guards against new fields missing from CodingKeys (the encoder would silently drop them).
+    func testAccountsRoundTrip() throws {
+        var s = AppSettings.default
+        let a = Account(label: "work", organizationId: "org-a")
+        let b = Account(label: "personal")
+        s.accounts = [a, b]
+        s.selectedAccountId = b.id
+        let decoded = try JSONDecoder().decode(AppSettings.self, from: JSONEncoder().encode(s))
+        XCTAssertEqual(decoded, s)
+        XCTAssertEqual(decoded.selectedAccount, b)
+    }
+
+    func testSelectedAccountFallsBackToFirst() {
+        var s = AppSettings.default
+        let a = Account(label: "a")
+        s.accounts = [a, Account(label: "b")]
+        s.selectedAccountId = UUID()
+        XCTAssertEqual(s.selectedAccount, a)
+    }
+
     func testRefreshIntervalClamped() {
         var s = AppSettings.default
         s.setRefreshInterval(5);    XCTAssertEqual(s.refreshInterval, 60)
         s.setRefreshInterval(9999); XCTAssertEqual(s.refreshInterval, 600)
+    }
+}
+
+final class AccountTests: XCTestCase {
+    func testKeychainSlotsAreDistinctPerAccount() {
+        let a = Account(label: "a"), b = Account(label: "b")
+        XCTAssertNotEqual(a.keychainAccount, b.keychainAccount)
+        XCTAssertNotEqual(a.keychainAccount, KeychainRepository.legacyAccount)
+    }
+
+    @MainActor
+    func testNotificationIdentifiersUniquePerAccount() {
+        let a = UUID(), b = UUID()
+        XCTAssertNotEqual(NotificationService.identifier(accountId: a, name: "Session", threshold: 80),
+                          NotificationService.identifier(accountId: b, name: "Session", threshold: 80))
+    }
+
+    func testDefaultLabel() {
+        XCTAssertEqual(AppModel.defaultLabel(organizationName: "me@x.com's Organization", index: 1), "me@x.com")
+        XCTAssertEqual(AppModel.defaultLabel(organizationName: "Acme", index: 2), "Acme")
+        XCTAssertEqual(AppModel.defaultLabel(organizationName: nil, index: 3), "Account 3")
+        XCTAssertEqual(AppModel.defaultLabel(organizationName: "  ", index: 4), "Account 4")
     }
 }
 

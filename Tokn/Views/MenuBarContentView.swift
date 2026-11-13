@@ -8,7 +8,7 @@ struct MenuBarContentView: View {
 
     var body: some View {
         Group {
-            if appModel.isSetupComplete {
+            if appModel.isSetupComplete && appModel.setupMode == nil {
                 UsageView(appModel: appModel)
             } else {
                 SetupView(appModel: appModel)
