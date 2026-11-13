@@ -62,7 +62,7 @@ struct SetupView: View {
                     )
                     .padding(.bottom, 8)
 
-                Text("claude.ai → DevTools (⌘⌥I) → Application → Cookies → sessionKey")
+                Text("claude.ai → DevTools (⌘⌥I), copy the sessionKey cookie\nChrome: Application → Cookies\nSafari: Storage → Cookies")
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundStyle(Color(white: 0.28))
                     .fixedSize(horizontal: false, vertical: true)

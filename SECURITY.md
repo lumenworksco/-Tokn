@@ -12,6 +12,6 @@ instead. You can expect a reply within a few days.
 
 ## Scope
 
-Tokn stores your claude.ai `sessionKey` in the macOS Keychain and only sends it to `claude.ai`.
+Tokn stores each claude.ai `sessionKey` you add in the macOS Keychain and only sends it to `claude.ai`.
 Reports about key handling, the auto-updater (SHA-256 / code-signature verification), or anything
 that could leak the key are especially welcome.

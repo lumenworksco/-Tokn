@@ -57,12 +57,18 @@ Track your Claude.ai session and weekly usage from the macOS menu bar — built 
 ## Setup
 
 1. Open [claude.ai](https://claude.ai) in Chrome or Safari
-2. Open DevTools (`⌘⌥I`)
-3. Go to **Application → Cookies → `claude.ai`**
-4. Copy the value of the `sessionKey` cookie — it starts with `sk-ant-`
+2. Open DevTools (`⌘⌥I`; in Safari, first enable **Settings → Advanced → Show features for web developers**)
+3. Find the cookies for `claude.ai`:
+   - **Chrome:** **Application** tab → **Cookies** → `https://claude.ai`
+   - **Safari:** **Storage** tab (behind **»** if the tab bar is narrow) → **Cookies** → `claude.ai`
+4. Copy the value of the `sessionKey` cookie — it starts with `sk-ant-`. It's HttpOnly, so it won't show up in `document.cookie` in the Console.
 5. Click the Tokn icon in your menu bar and paste it in
 
-To track another Claude account, log into it (e.g. in a different browser profile), copy its `sessionKey` the same way, and use **Settings → Accounts → add account**.
+### Adding more accounts
+
+To track another Claude account, log into it in a private window or a different browser/profile, copy its `sessionKey` the same way, and use **Settings → Accounts → add account**. Don't just log out and back in in the same window — logging out can invalidate the key you already added.
+
+The popover then lists every account with its 5h and 7d usage; click a row to pick which account the menu bar shows. Notifications name the account they're about.
 
 Each session key is stored **only in the macOS Keychain** — never written to disk or sent anywhere other than `claude.ai`.
 
@@ -130,7 +136,7 @@ Anthropic doesn't offer a public API for claude.ai subscription limits (the 5-ho
 | Network + Usage + Updates | `Tokn/Services/` |
 | UI | `Tokn/Views/` |
 
-Two API endpoints are used — `GET /api/organizations` (resolves your org UUID on first run) and `GET /api/organizations/{id}/usage` (fetches the usage data). All source is plain Swift with zero third-party dependencies, so the full behaviour is auditable in a few hundred lines.
+Two API endpoints are used — `GET /api/organizations` (resolves each account's org UUID when it's added) and `GET /api/organizations/{id}/usage` (fetches the usage data). All source is plain Swift with zero third-party dependencies, so the full behaviour is auditable in a few hundred lines.
 
 ---
 
